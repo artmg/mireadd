@@ -1,6 +1,18 @@
+
+If you have never done an NCS project before then hopefully Staring Here 
+will get you on your way. 
+
 ## From Windows or MacOS
 
-Here are simple step by step instructions for setting up a guest virtual machine to run ?ubuntu so you can use the Movidius Neural Compute Stick (NCS)
+We're assuming that you're not lucky enough to use an ubuntu derivative 
+as your day to day working system, so let's see how you can start from a Windows or Mac.
+Neither of those operating systems are directly supported by the Intel Movidius NCS 
+Software Development Kit (SDK), so let's use Ubuntu or Lubuntu on them anyhow, 
+through the power of virtualisation. 
+
+Here are simple step by step instructions for setting up 
+a guest virtual machine to run ?ubuntu 
+so you can use the Movidius Neural Compute Stick (NCS)
 
 Use Oracle VirtualBox to host a linux guest OS
 
@@ -137,7 +149,15 @@ rm –rf ncsdk
 * Introduction to the Development workflow
  * https://movidius.github.io/ncsdk/
 * More detail on developing beyond the simple stream_infer sample earlier
+ * how to train a network specifically for the kind of application you need, 
+    based on a data set you want to use
  * https://movidius.github.io/blog/deploying-custom-caffe-models/ 
+
+### Robotics 
+
+Intel also have a Robotic Open Source (ROS) project, 
+http://wiki.ros.org/IntelROSProject, 
+that includes 2D and 3D camera modules. 
 
 
 ### Advanced usage with docker containers
@@ -147,5 +167,6 @@ see:
 
 * https://github.com/kwierman/docker_ncsdk
 * https://stackoverflow.com/questions/49181354/run-ncsdk-movidius-neural-stick-on-macos
+* https://ichbinblau.github.io/2017/12/19/Running-the-NCSDK-examples-in-Docker/
 
 
