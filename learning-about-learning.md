@@ -6,6 +6,14 @@ This is a good place to come to begin to understand about neural networks and de
   * then it goes on to describe methods used by different recognition frameworks
 
 
+## Teaching Models yourself
+
+* here is an intro to how to teach a model yourself
+  * https://ncsforum.movidius.com/discussion/634/feasability-questions-about-tutorials-and-examples
+* perhaps this could be used with the [Kaggle Fruits image set](https://www.kaggle.com/moltean/fruits)
+
+
+
 ## Some Common Frameworks
 
 Joseph Redmon began the [Darknet project](https://github.com/pjreddie/darknet), a framework using C and CUDA. 
