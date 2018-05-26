@@ -26,14 +26,16 @@ cheese
 ## Clone scripts to use
 
 We found https://github.com/gudovskiy/yoloNCS a little complicated, 
-so we instead used https://github.com/jincongho/NCS_TinyYolo for the script to 
-take the webcam feed and pass it to YOLO
+so we wanted yo use https://github.com/jincongho/NCS_TinyYolo for the script to 
+take the webcam feed and pass it to YOLO. However that was only compatible with 
+NCSDK1, so we forked it to make it compatible with NCSDK2, 
+in https://github.com/artmg/NCSDK2_TinyYolo
 
 ```
 mkdir -p ~/CamRecog
 cd ~/CamRecog
-git clone https://github.com/jincongho/NCS_TinyYolo.git
-cd NCS_TinyYolo
+git clone https://github.com/artmg/NCSDK2_TinyYolo.git
+cd NCSDK2_TinyYolo
 make
 ```
 
