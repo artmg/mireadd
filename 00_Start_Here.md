@@ -138,6 +138,15 @@ rm –rf ncsdk
 # credit https://ncsforum.movidius.com/discussion/670/caffe-build-error-during-ncsdk-installation
 ```
 
+## Improvements
+
+* create a VM with a clean build then Snapshot the disk. 
+  * Install NCSDK2 and then snapshot again
+  * you can revert to clean and install NCSDKv1 and snapshot that too
+* this way you can choose your platform quickly, 
+  * but be sure you are starting clean
+  * and validating your install instructions for someone _else_ with a clean system
+
 
 ## Next Steps
 
