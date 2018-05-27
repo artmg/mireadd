@@ -35,7 +35,7 @@ in https://github.com/artmg/NCSDK2_TinyYolo
 mkdir -p ~/CamRecog
 cd ~/CamRecog
 git clone https://github.com/artmg/NCSDK2_TinyYolo.git
-cd NCSDK2_TinyYolo
+cd ~/CamRecog/NCSDK2_TinyYolo
 make
 ```
 
