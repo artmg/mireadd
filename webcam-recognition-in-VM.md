@@ -39,7 +39,21 @@ cd NCSDK2_TinyYolo
 make
 ```
 
-Here is the sample output from the make command
+This should put up the images seen by the webcam with the detection boxes and classification of them
+
+If you want to re-run just the detection part at the end
+
+```
+make run_py
+
+# or
+
+python3 stream.py
+```
+
+If you get failures during the make, 
+here is a sample output from a successful make command, 
+for you to compare with
 
 ```
 making prototxt
@@ -111,6 +125,16 @@ Blob generated
 
 ```
 
+## Next steps
+
+* Re-assign classes
+  * this solution is fixed with 20 image classes it looks for
+  * work out how to modify those and focus on recognising something different
+* Try a more accurate netowrk
+  * According to http://cv-tricks.com/object-detection/faster-r-cnn-yolo-ssd/ the alternative networks SSD and Faster-RCNN might be ways to improve accuracy
+  * however they are progressively more computationally heavy and might be slow or require specialist hardware like a GPU
+
+
 ## Improvements
 
 * add this to the main NCAppZoo repo
@@ -119,5 +143,4 @@ Blob generated
   - add in the stream code and submit a pull request
    - maybe add our code into V2 and jincongho into V1
    
-
 
