@@ -111,9 +111,13 @@ Blob generated
 
 ```
 
-FYI some people seem to store their CAFFE models on Google Drive, 
-from which you can't download using the command line, 
-so you'll need to do those manually 
+## Improvements
 
+* add this to the main NCAppZoo repo
+  - fork https://github.com/movidius/ncappzoo
+  - go into your equivalent of https://github.com/movidius/ncappzoo/tree/ncsdk2/caffe/TinyYolo
+  - add in the stream code and submit a pull request
+   - maybe add our code into V2 and jincongho into V1
+   
 
 
