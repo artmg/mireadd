@@ -16,7 +16,7 @@ so you can use the Movidius Neural Compute Stick (NCS)
 
 Use Oracle VirtualBox to host a linux guest OS
 
-These instructions have been tested on macOS High Sierra, but should work fine in Windows too.
+These instructions have been tested on macOS High Sierra and on Windows 10.
 
 ## Install Virtual Box
 
@@ -32,47 +32,55 @@ These instructions have been tested on macOS High Sierra, but should work fine i
 
 ## create the VM
 
-* 20GB should be more than ample
-* Open the Device Settings to add Pass through PNP Device filters
-  * Ports / USB 
-  * Enable USB: USB3 (xHCI controller)
-  * Device Filters / Add Empty / Edit
-  * Name: NCS USB2 - Venor ID: 03e7 - Product ID: 2150
-  * Name: NCS USB3 - Venor ID: 03e7 - Product ID: f63b
-  * credit https://ncsforum.movidius.com/discussion/406/ncs-on-windows-10-with-virtualbox 
-* mount the ISO in the virtual cdrom
+* use the wizard to create a new Linux/Ubuntu VM
+* you can set 2048 MB RAM for now, and this can be increased later if needed
+* 20GB should be more than ample for most projects
+* once you have created the VM...
 * start up the VM
+* browse to the above ISO image to mount it in the virtual optical cdrom drive
+  * if you're not prompted for the above then 
+    * use the 'Host key' e.g. Right-Alt to leave the VM window
+    * Click the title of the VM window to see the Virtual Box menu
+    * Devices / Optical Drives / Choose disk image
 * choose Try Lubuntu 
 * once the desktop opens use the Install Lubuntu icon
 * use install type: Erase disk and install Lubuntu
   * this is safe because you're in a VM and the VMDK was just created empty :)
 * answer install steps as you prefer
+  * you will find it easiest to 'Log in automatically'
+  * you are unlikely to need store sensitive data so no need to encypt home drive
 * follow through until reboot
+* restart now
+* if the VM does not restart by itself
+  * use the Host Key to leave the VM window 
+  * from the Virtual Box menu choose Machine / Reset
 * unmount the ISO from the VM
-* reboot
+
 
 ## Install guest tools
 
-This is the other part of getting the USB working properly
+Before setting up to pass through the USB below, you must install the Guest Additions. 
+These tools are mainly drivers that make the guest function well inside Virtual Box. 
 
-**Note:** when you use sudo in ubuntu you are asked for a password. 
-You may find it easier to type 
+* Insert/ Mount **Guest Additions Cdrom**
+  * in the VBox guest menu: Devices / Insert Guest Additions CD image
+* If prompted, Open in file manager
+  * otherwise double-click on the VBox_GAs desktop icon
+* press F4 to open a terminal in this folder
+* Install the guest additions with the commands below...
+
+**Hint:** if you can't paste these commands into your VM from your host, 
+then browse to this page _inside_ your VM :)
+
+If you are going to paste in code blocks, you should start with this one
+whcih asks for your password to 'sudo'
 
 ```
 sudo echo
 ```
 
-so that you are prompted for that password (which is cached for 5 minutes) 
-before you paste in code blocks
-
-**Hint:** if you can't paste these commands into your VM from your host, 
-then browse to this page _inside_ your VM :)
-
-* Insert/ Mount **Guest Additions Cdrom**
-  * in the VBox guest menu: Devices / Insert Guest Additions CD image
-* Open in file manager
-* press F4 to open a terminal in this folder
-* Install the guest additions with the command...
+Otherwise, if you just type them in manually, 
+then start below and don't bother with the lines begining with `#`
 
 ```
 # install the dependency 'dkms' to get guest tools installed
@@ -81,13 +89,28 @@ sudo apt install -y git dkms
 sudo ./VBoxLinuxAdditions.run
 ```
 
-if it installed without errors then reboot (`sudo reboot`)
+This may take a minute or so. 
+If it installed without errors then reboot (`sudo reboot`)
+
+You may now enable copy and paste...
 
 * Enable copy & paste
   * Devices / Shared Clipboard / Bidirectional
 
 As a bonus, you can now dynamically resize the desktop area by dragging the window edges
 
+## Pass through USB
+
+The most important reason for the guest additions above, though, is to make USB 2 & 3 work.
+These will be used to pass through the Movidius Stick for the VM to be able to use.
+
+* Open the Device Settings to add Pass through PNP Device filters
+  * Ports / USB 
+  * Enable USB: USB3 (xHCI controller)
+  * Device Filters / Add Empty / Edit
+  * Name: NCS USB2 - Venor ID: 03e7 - Product ID: 2150
+  * Name: NCS USB3 - Venor ID: 03e7 - Product ID: f63b
+  * credit https://ncsforum.movidius.com/discussion/406/ncs-on-windows-10-with-virtualbox 
 
 ## test you can pass the USB stick through to the VM
 
@@ -95,11 +118,48 @@ As a bonus, you can now dynamically resize the desktop area by dragging the wind
 * no, it's **not** going to start doing anything awesome just yet
 * plug your NCS into a USB interface on your PC
 * check you can see the device in ubuntu
-  * from a terminal run the command 
+  * from a terminal run the following command
+  * Terminal is in the start menu / System Tools / LXTerminal
+  * or use the keyboard shorctut CTRL - ALT - T
 
 ```    
 lsusb
 ```
+
+## updates and snapshot
+
+As a final couple of steps, you can install any recent updates to the old OS version, 
+and then take a snapshot so you can revert to this clean install any time you want. 
+
+* open the Terminal with CTRL ALT T
+* if you are going to paste the following commands as a block start with `sudo echo`
+
+```    
+sudo apt update
+
+sudo apt upgrade -y
+```
+
+Now take a snapshot of the current VM state:
+
+* Shut down
+* In the Virtual Box Manager, look at the top of the right hand pane
+* Look for Machine Tools and Details
+* near here you will see a button maked 'Snapshots' - click it
+* click Take + 
+* Enter a name, e.g. Fresh install with tools and updates
+* click OK
+
+Now you will be able to undo anything you do after this point, 
+and return to this clean fresh install, any time you want.
+
+Snapshots are especially useful if you want to try out a whole variety of projects 
+one after another. 
+They avoid clashing when multiple versions and libraries are installed for each, 
+and they avoid your disk filling up as you clean it down each time.
+Also if you always go back to a clean system, 
+you can be sure that instructions you write will work consistently for someone else.
+
 
 ## Now you have ?ubuntu...
 
@@ -125,6 +185,9 @@ cd ~/workspace/ncsdk
 make examples
 ```
 
+If you want you may choose to take another snapshot here
+
+
 ### Troubleshooting
 
 If you get odd errors when playing with the install, 
@@ -137,16 +200,6 @@ cd ..
 rm –rf ncsdk
 # credit https://ncsforum.movidius.com/discussion/670/caffe-build-error-during-ncsdk-installation
 ```
-
-## Improvements
-
-* create a VM with a clean build then Snapshot the disk. 
-  * Install NCSDK2 and then snapshot again
-  * you can revert to clean and install NCSDKv1 and snapshot that too
-* this way you can choose your platform quickly, 
-  * but be sure you are starting clean
-  * and validating your install instructions for someone _else_ with a clean system
-
 
 ## Next Steps
 
