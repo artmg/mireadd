@@ -101,8 +101,10 @@ As a bonus, you can now dynamically resize the desktop area by dragging the wind
 
 ## Pass through USB
 
-The most important reason for the guest additions above, though, is to make USB 2 & 3 work.
-These will be used to pass through the Movidius Stick for the VM to be able to use.
+The most important reason for the guest additions above, though, is to make USB 2 & 3 work 
+- which will be used to 'pass-through' the Movidius Stick for the VM to be able to use it. 
+USB 2 & 3 require both the Extension Pack you installed on the host at the beginning, 
+and the Guest Additions you have just installed inside your guest just now. 
 
 * Open the Device Settings to add Pass through PNP Device filters
   * Ports / USB 
